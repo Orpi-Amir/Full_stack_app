@@ -1,23 +1,34 @@
-import styles from './postUser.module.css';
+import styles from "./postUser.module.css";
+import { getUser } from "@/lib/data";
 
-const getData = async (userId)=>{
-    const res = await fetch('https://jsonplaceholder.typicode.com/users/${userId}' , {cache: 'no-store'});
+const PostUser = async ({ userId }) => {
+  try {
+    const user = await getUser(userId);
 
-    if  (!res.ok){
-        throw new Error('Something went wrong')
+    if (!user) {
+      return (
+        <div className={styles.container}>
+          <span className={styles.title}>Author</span>
+          <span className={styles.username}>Unknown</span>
+        </div>
+      );
     }
 
-    return res.json()
-};
-const PostUser = async ({userId}) =>{
-
-const user = await getUser ({userId}) 
     return (
-       <div className={styles.container}>
-            <span className={styles.title}>Author</span>
-            <span className={styles.username}>user.username</span>
-          </div>
-    )
-}
+      <div className={styles.container}>
+        <span className={styles.title}>Author</span>
+        <span className={styles.username}>{user.username}</span>
+      </div>
+    );
+  } catch (err) {
+    console.error("ERROR LOADING USER:", err);
+    return (
+      <div className={styles.container}>
+        <span className={styles.title}>Author</span>
+        <span className={styles.username}>Unknown</span>
+      </div>
+    );
+  }
+};
 
-export default PostUser
+export default PostUser;
