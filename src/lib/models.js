@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema(
       default: false,
     },
   },
-  { timestamps: true }  // <- Changed from {timestamps: true} and added closing parenthesis
+  { timestamps: true }  
 );
 
 const postSchema = new mongoose.Schema(

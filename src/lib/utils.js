@@ -1,16 +1,28 @@
 import mongoose from "mongoose";
 
-let connection = {};
+let isConnected = false;
 
 export const connectToDb = async () => {
-  if (connection.isConnected) return;
+  if (isConnected) {
+    console.log("🔁 Using existing MongoDB connection");
+    return;
+  }
+
+  if (mongoose.connections[0].readyState) {
+    isConnected = true;
+    console.log("🔁 Using cached MongoDB connection");
+    return;
+  }
 
   try {
-    const db = await mongoose.connect(process.env.MONGODB_URI);
-    connection.isConnected = db.connections[0].readyState;
-    console.log("✅ Connected to MongoDB:", db.connections[0].name);
+    await mongoose.connect(process.env.MONGODB_URI, {
+      dbName: "uniride", // change if needed
+    });
+
+    isConnected = true;
+    console.log("✅ MongoDB connected");
   } catch (error) {
-    console.error("❌ MongoDB connection failed:", error);
+    console.log("❌ MongoDB connection error:", error.message);
     throw error;
   }
 };

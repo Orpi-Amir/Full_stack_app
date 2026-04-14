@@ -6,6 +6,7 @@ import { getPost } from "@/lib/data";
 
 const SinglePostPage = async ({ params }) => {
   const { slug } = params;
+  console.log("SLUG:", slug);
 
   try {
     const post = await getPost(slug);

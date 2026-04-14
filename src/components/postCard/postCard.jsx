@@ -16,8 +16,7 @@ const PostCard = ({ post }) => {
       <div className={styles.top}>
         <div className={styles.imgContainer}>
           <Image
-            src={post.img || "https://images.unsplash.com/photo-1501785888041-af3ef285b470"}
-            alt={post.title || "Post image"}
+            src= {post.img} alt= '' 
             fill
             className={styles.img}
           />

@@ -7,12 +7,8 @@ const BlogPage = async () => {
     const posts = await getPosts();
 
     if (!posts || posts.length === 0) {
-      return (
-        <div className={styles.container}>
-          <div className={styles.noPostsMessage}>No posts found.</div>
-        </div>
-      );
-    }
+  return <p>No posts found</p>;
+}
 
     return (
       <div className={styles.container}>
